@@ -26,7 +26,7 @@ resource "azurerm_resource_group" "rg_aks" {
   name     = "${var.name}-aks-${var.environment}-rg"
   location = "${var.location}"
   
-  tags {
+  tags = {
     component   = "aks"
     environment = "${var.environment}"
   }
@@ -123,7 +123,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
-  tags {
+  tags = {
     component   = "aks"
     environment = "${var.environment}"
   }
@@ -132,7 +132,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 resource "null_resource" "az_get_credentials" {
   depends_on = ["azurerm_kubernetes_cluster.aks"]
 
-  triggers {
+  triggers = {
     depends_on_kubectl_credentials = "${azurerm_kubernetes_cluster.aks.fqdn}"
   }
 
