@@ -16,8 +16,7 @@ resource "helm_release" "public_ingress" {
   namespace = "kube-system"
   
   values = ["${file("${path.module}/public-ingress.yaml")}"]
-  set = [
-    {
+  set {
       name  = "controller.service.loadBalancerIP"
       value = "${azurerm_public_ip.public_ingress.ip_address}"
     }

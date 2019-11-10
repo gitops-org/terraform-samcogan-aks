@@ -28,7 +28,7 @@ resource "kubernetes_storage_class" "azurefile" {
   storage_provisioner = "kubernetes.io/azure-file"
   reclaim_policy = "Delete"
 
-  parameters {
+  parameters = {
     skuName = "Standard_LRS"
     location = "${var.location}"
     storageAccount = "${azurerm_storage_account.azurefile.name}"
