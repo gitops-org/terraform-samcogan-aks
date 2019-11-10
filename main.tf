@@ -86,11 +86,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     os_disk_size_gb   = "${var.os_disk_size_gb}"
   }
 
-  linux_profile {
-    admin_username = "${var.admin_username}"
+  # linux_profile {
+  #   admin_username = "${var.admin_username}"
 
 
-  }
+  # }
 
   network_profile {
     network_plugin = "azure"
