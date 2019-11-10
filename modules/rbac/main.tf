@@ -15,7 +15,7 @@ resource "random_string" "app_acr_push_secret" {
 
 resource "null_resource" "sp" {
 
-  triggers {
+  triggers = {
     shell_hash = "${sha256(file("${path.module}/azure-ad.sh"))}"
   }
   provisioner "local-exec" {
