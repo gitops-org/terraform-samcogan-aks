@@ -89,9 +89,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   linux_profile {
     admin_username = "${var.admin_username}"
 
-    ssh_key {
-      key_data = "${file(var.ssh_key_path)}"
-    }
+
   }
 
   network_profile {
@@ -117,6 +115,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     oms_agent {
       enabled                     = true
       log_analytics_workspace_id  = "${module.log.id}"
+    },
+    aci_connector_linux {
+      enabled = true
+      subnet_name = var.aci_subnet_name
     }
   }
 

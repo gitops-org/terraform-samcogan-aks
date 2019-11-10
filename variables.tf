@@ -47,3 +47,7 @@ variable "ssh_key_path" {
 }
 
 variable "cert_issuer_email" {}
+
+variable "aci_subnet_name" {
+  
+}
