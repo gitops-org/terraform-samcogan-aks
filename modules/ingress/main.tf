@@ -20,7 +20,7 @@ resource "helm_release" "public_ingress" {
       name  = "controller.service.loadBalancerIP"
       value = "${azurerm_public_ip.public_ingress.ip_address}"
     }
-  ]
+
 }
 
 resource "helm_release" "private_ingress" {
