@@ -4,7 +4,7 @@ resource "azurerm_log_analytics_workspace" "log_workspace_aks" {
   location            = "${var.location}"
   sku                 = "PerGB2018"
 
-  tags {
+  tags = {
     component   = "aks"
     environment = "${var.environment}"
   }

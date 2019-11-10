@@ -6,7 +6,7 @@ resource "azurerm_storage_account" "azurefile" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags {
+  tags = {
     component   = "aks"
     environment = "${var.environment}"
   }

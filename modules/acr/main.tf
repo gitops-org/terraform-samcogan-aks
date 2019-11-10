@@ -6,7 +6,7 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
   sku                 = "${var.sku}"  
 
-  tags {
+  tags = {
     component   = "aks"
   }
 }
