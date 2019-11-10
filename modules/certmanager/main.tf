@@ -11,16 +11,15 @@ resource "helm_release" "cert_manager" {
   version = "v0.5.2"
   namespace = "kube-system"  
   
-  set = [
-    {
+  set {
       name  = "ingressShim.defaultIssuerName"
       value = "${local.letsencrypt_environment}"
-    },
-    {
+    }
+    set {
       name  = "ingressShim.defaultIssuerKind"
       value = "ClusterIssuer"
     }
-  ]
+  
 }
 
 data "template_file" "cert_manager" {
