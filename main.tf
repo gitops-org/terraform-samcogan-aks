@@ -129,18 +129,18 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-resource "null_resource" "az_get_credentials" {
-  depends_on = ["azurerm_kubernetes_cluster.aks"]
+# resource "null_resource" "az_get_credentials" {
+#   depends_on = ["azurerm_kubernetes_cluster.aks"]
 
-  triggers = {
-    depends_on_kubectl_credentials = "${azurerm_kubernetes_cluster.aks.fqdn}"
-  }
+#   triggers = {
+#     depends_on_kubectl_credentials = "${azurerm_kubernetes_cluster.aks.fqdn}"
+#   }
 
-  provisioner "local-exec" {
-      command = "az aks get-credentials --resource-group ${azurerm_resource_group.rg_aks.name} --name ${var.name}-aks-${var.environment}"
-      working_dir = "${path.module}"
-  }
-}
+#   provisioner "local-exec" {
+#       command = "az aks get-credentials --resource-group ${azurerm_resource_group.rg_aks.name} --name ${var.name}-aks-${var.environment}"
+#       working_dir = "${path.module}"
+#   }
+# }
 
 provider "kubernetes" {
   version = "~> 1.5"
@@ -171,15 +171,15 @@ resource "kubernetes_cluster_role_binding" "clusteradmins_rolebinding_aks" {
   }
 }
 
-module "azurefile" {
-  source = "./modules/azurefile"
+# module "azurefile" {
+#   source = "./modules/azurefile"
 
-  depends_on_kubectl_credentials = "${null_resource.az_get_credentials.triggers["depends_on_kubectl_credentials"]}"
-  name = "${var.name}"
-  environment = "${var.environment}"
-  resource_group = "${azurerm_kubernetes_cluster.aks.node_resource_group}"
-  location = "${azurerm_resource_group.rg_aks.location}"  
-}
+#   depends_on_kubectl_credentials = "${null_resource.az_get_credentials.triggers["depends_on_kubectl_credentials"]}"
+#   name = "${var.name}"
+#   environment = "${var.environment}"
+#   resource_group = "${azurerm_kubernetes_cluster.aks.node_resource_group}"
+#   location = "${azurerm_resource_group.rg_aks.location}"  
+# }
 
 module "helm" {
   source = "./modules/helm"
@@ -213,13 +213,13 @@ module "ingress" {
   location = "${azurerm_resource_group.rg_aks.location}"
 }
 
-module "certmanager" {
-  source = "./modules/certmanager"
+# module "certmanager" {
+#   source = "./modules/certmanager"
 
-  depends_on_kubectl_credentials = "${null_resource.az_get_credentials.triggers["depends_on_kubectl_credentials"]}"
-  name = "${var.name}"
-  environment = "${var.environment}"
-  resource_group = "${azurerm_kubernetes_cluster.aks.node_resource_group}"
-  location = "${azurerm_resource_group.rg_aks.location}"
-  issuer_email = "${var.cert_issuer_email}"
-}
+#   depends_on_kubectl_credentials = "${null_resource.az_get_credentials.triggers["depends_on_kubectl_credentials"]}"
+#   name = "${var.name}"
+#   environment = "${var.environment}"
+#   resource_group = "${azurerm_kubernetes_cluster.aks.node_resource_group}"
+#   location = "${azurerm_resource_group.rg_aks.location}"
+#   issuer_email = "${var.cert_issuer_email}"
+# }
