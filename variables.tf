@@ -20,7 +20,7 @@ variable "kubernetes_version" {
   default = "1.11.5"
 }
 
-variable "count" {
+variable "nodecount" {
   default = "1"
 }
 

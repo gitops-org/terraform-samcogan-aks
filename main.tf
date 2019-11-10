@@ -78,7 +78,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   agent_pool_profile {
     name              = "${var.name}${var.environment}"
-    count             = "${var.count}"
+    count             = "${var.nodecount}"
     vm_size           = "${var.vm_size}"
     max_pods          = "${var.max_pods}"
     vnet_subnet_id    = "${module.subnet.id}"
@@ -119,7 +119,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
     aci_connector_linux {
       enabled = true
-      subnet_name = var.aci_subnet_name
+      subnet_name = "${var.aci_subnet_name}"
     }
   }
 
